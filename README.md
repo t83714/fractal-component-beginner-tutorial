@@ -32,4 +32,4 @@ npm run build
 # Branches
 
 - `Master` branch contains the complete demo code. 
-- If you need a `fresh start` blank template to follow the tutorial, you can checkout the branch named [blank-template](/tree/blank-template).
+- If you need a `fresh start` blank template to follow the tutorial, you can checkout the branch named [blank-template](https://github.com/t83714/fractal-component-beginner-tutorial/tree/blank-template).
