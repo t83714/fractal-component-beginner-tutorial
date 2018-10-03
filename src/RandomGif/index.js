@@ -4,6 +4,9 @@ import * as actionTypes from "./actions/types";
 import reducer from "./reducers";
 import * as actions from "./actions";
 import saga from "./sagas";
+import jss from "jss";
+import jssDefaultPreset from "jss-preset-default";
+import styles from "./styles";
 
 class RandomGif extends React.Component {
     constructor(props) {
@@ -19,21 +22,38 @@ class RandomGif extends React.Component {
             // --- register all action types so that actions are serialisable
             actionTypes,
             reducer,
-            saga
+            saga,
+            namespaceInitCallback: componentManager => {
+                const styleSheet = jss
+                    .setup(jssDefaultPreset())
+                    .createStyleSheet(styles, {
+                        generateClassName: componentManager.createClassNameGenerator()
+                    })
+                    .attach();
+                return { styleSheet };
+            },
+            namespaceDestroyCallback: ({ styleSheet }) => {
+                styleSheet.detach();
+            }
         });
     }
 
     render() {
+        const { styleSheet } = this.componentManager.getNamespaceData();
+        const { classes } = styleSheet;
         return (
-            <div>
-                <div>
+            <div className={classes.table}>
+                <div className={classes.cell}>RandomGif</div>
+                <div
+                    className={`${classes.cell} ${classes["image-container"]}`}
+                >
                     {this.state.imageUrl &&
                         !this.state.isLoading &&
                         !this.state.error && (
                             <img
+                                alt="Gif"
                                 src={this.state.imageUrl}
-                                width="250px"
-                                height="250px"
+                                className={`${classes.image}`}
                             />
                         )}
                     {(!this.state.imageUrl || this.state.isLoading) &&
@@ -48,7 +68,7 @@ class RandomGif extends React.Component {
                         <p>{`Failed to request API: ${this.state.error}`}</p>
                     )}
                 </div>
-                <div>
+                <div className={`${classes.cell} `}>
                     <button
                         onClick={() => {
                             this.componentManager.dispatch(
