@@ -19,3 +19,27 @@ export function requestNewGifError(error) {
         payload: error
     };
 }
+
+// --- for outgoing actions
+
+export function newGif() {
+    return {
+        type: actionTypes.NEW_GIF
+    };
+}
+
+export function loadingStart() {
+    return {
+        type: actionTypes.LOADING_START
+    };
+}
+
+export function loadingComplete(error = null) {
+    return {
+        type: actionTypes.LOADING_COMPLETE,
+        payload: {
+            isSuccess: error ? false : true,
+            error
+        }
+    };
+}
