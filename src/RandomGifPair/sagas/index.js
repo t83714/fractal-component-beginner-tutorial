@@ -6,16 +6,17 @@ import {
 } from "../../RandomGif";
 
 function* mainSaga(effects) {
+    let isLoadingStartActionDispatched = false;
     yield effects.takeEvery(
         RandomGifActionTypes.LOADING_START,
         function*() {
-            if (!this.isLoadingStartActionDispatched) {
+            if (!isLoadingStartActionDispatched) {
                 yield effects.put(
                     actions.loadingStart(),
                     "../../../*"
                 );
             }
-        }.bind(this)
+        }
     );
     yield effects.takeEvery(
         RandomGifActionTypes.LOADING_COMPLETE,
@@ -32,9 +33,9 @@ function* mainSaga(effects) {
                     actions.loadingComplete(error),
                     "../../../*"
                 );
-                this.isLoadingStartActionDispatched = false;
+                isLoadingStartActionDispatched = false;
             }
-        }.bind(this)
+        }
     );
     // --- monitor `REQUEST_NEW_PAIR` and send multicast actions to RandomGifs
     yield effects.takeEvery(

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { AppContainerUtils, AppContainer } from "fractal-component";
+import { ComponentManager, AppContainer, AppContainerContext } from "fractal-component";
 import * as actionTypes from "./actions/types";
 import reducer from "./reducers";
 import * as actions from "./actions";
@@ -19,7 +19,7 @@ class RandomGif extends React.Component {
             imageUrl: null,
             error: null
         };
-        this.componentManager = AppContainerUtils.registerComponent(this, {
+        this.componentManager = new ComponentManager(this, {
             namespace: "io.github.t83714/RandomGif",
             // --- register all action types so that actions are serialisable
             actionTypes,
@@ -91,6 +91,9 @@ class RandomGif extends React.Component {
         );
     }
 }
+
+// --- allow appContainer to be passed through Context
+RandomGif.contextType = AppContainerContext;
 
 RandomGif.propTypes = {
     showButton: PropTypes.bool,

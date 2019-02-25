@@ -34,11 +34,4 @@ npm run build
 - `Master` branch contains the complete demo code. 
 - If you need a `fresh start` blank template to follow the tutorial, you can checkout the branch named [blank-template](https://github.com/t83714/fractal-component-beginner-tutorial/tree/blank-template).
 
-# Tags
 
-- [section-3.1](https://github.com/t83714/fractal-component-beginner-tutorial/tree/section-3.1)
-- [section-3.3](https://github.com/t83714/fractal-component-beginner-tutorial/tree/section-3.3)
-- [section-3.4](https://github.com/t83714/fractal-component-beginner-tutorial/tree/section-3.4)
-- [section-3.5](https://github.com/t83714/fractal-component-beginner-tutorial/tree/section-3.5)
-- [section-3.6](https://github.com/t83714/fractal-component-beginner-tutorial/tree/section-3.6)
-- [section-4.1](https://github.com/t83714/fractal-component-beginner-tutorial/tree/section-4.1)

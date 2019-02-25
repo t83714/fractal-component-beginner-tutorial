@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { AppContainerUtils, AppContainer, ActionForwarder } from "fractal-component";
+import { ComponentManager, AppContainer, AppContainerContext, ActionForwarder } from "fractal-component";
 import RandomGif, { actions as RandomGifActions, actionTypes as RandomGifActionTypes } from "../RandomGif";
 
 import * as actions from "./actions";
@@ -21,7 +21,7 @@ class RandomGifPair extends React.Component {
             error: null
         };
 
-        this.componentManager = AppContainerUtils.registerComponent(this, {
+        this.componentManager = new ComponentManager(this, {
             namespace: "io.github.t83714/RandomGifPair",
             reducer,
             saga,
@@ -64,7 +64,7 @@ class RandomGifPair extends React.Component {
                             namespacePrefix={`${
                                 this.componentManager.fullPath
                             }/Gifs`}
-                            appContainer={this.props.appContainer}
+                            appContainer={this.componentManager.appContainer}
                         />
                     </div>
                     <div>
@@ -74,7 +74,7 @@ class RandomGifPair extends React.Component {
                             namespacePrefix={`${
                                 this.componentManager.fullPath
                             }/Gifs`}
-                            appContainer={this.props.appContainer}
+                            appContainer={this.componentManager.appContainer}
                         />
                     </div>
                 </div>
@@ -103,6 +103,7 @@ class RandomGifPair extends React.Component {
                     namespacePrefix={`${this.componentManager.fullPath}/Gifs`}
                     pattern={RandomGifActionTypes.NEW_GIF}
                     relativeDispatchPath="../../../../*"
+                    appContainer={this.componentManager.appContainer}
                 />
 
                 {/**
@@ -118,11 +119,15 @@ class RandomGifPair extends React.Component {
                         action.type === RandomGifActionTypes.LOADING_COMPLETE
                     }
                     relativeDispatchPath=".."
+                    appContainer={this.componentManager.appContainer}
                 />
             </div>
         );
     }
 }
+
+// --- allow appContainer to be passed through Context
+RandomGifPair.contextType = AppContainerContext;
 
 RandomGifPair.propTypes = {
     showButton: PropTypes.bool,
