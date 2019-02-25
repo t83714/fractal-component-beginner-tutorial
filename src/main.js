@@ -4,15 +4,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 import RandomGif from "./RandomGif";
 import RandomGifPair from "./RandomGifPair";
+import { AppContainer, AppContainerContext } from "fractal-component";
+
+const appContainer = new AppContainer();
 
 ReactDOM.render(
-    <div>
+    <AppContainerContext.Provider value={appContainer}>
         <div>
-            <RandomGif />
+            <div>
+                <RandomGif />
+            </div>
+            <div>
+                <RandomGifPair />
+            </div>
         </div>
-        <div>
-            <RandomGifPair />
-        </div>
-    </div>,
+    </AppContainerContext.Provider>,
     document.getElementById("root")
 );
